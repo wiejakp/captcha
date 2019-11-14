@@ -75,7 +75,7 @@ class CaptchaService
     public function init(): void
     {
         // validate provided range numbers
-        if($this->getCaptchaNumberRange()[1] < $this->getCaptchaNumberRange(0)) {
+        if($this->getCaptchaNumberRange()[1] < $this->getCaptchaNumberRange()[0]) {
             throw new \Exception('Provided range numbers are invalid.');
         }
 
