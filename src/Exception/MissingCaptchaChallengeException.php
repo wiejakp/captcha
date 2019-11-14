@@ -12,12 +12,12 @@ namespace wiejakp\captcha\Exception;
 
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
-class InvalidEquationException extends AuthenticationException
+class MissingCaptchaChallengeException extends AuthenticationException
 {
     /**
      * @var string
      */
-    protected $message = 'Invalid equation exception.';
+    protected $message = 'Missing captcha challenge.';
 
     /**
      * {@inheritdoc}
