@@ -1,0 +1,40 @@
+{
+    "name": "wiejakp/captcha",
+    "description": "Captcha library for PHP applications.",
+    "type": "library",
+    "keywords": ["php"],
+    "homepage": "https://github.com/wiejakp/captcha",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Przemek Wiejak",
+            "email": "przemek@wiejak.app",
+            "homepage": "https://www.wiejak.app"
+        }
+    ],
+    "support": {
+        "docs": "https://wiejakp.github.io/captcha/",
+        "issues": "https://github.com/wiejakp/captcha/issues",
+        "rss": "https://github.com/wiejakp/captcha/releases.atom",
+        "source": "https://github.com/wiejakp/captcha.git",
+        "wiki": "https://github.com/wiejakp/captcha/wiki"
+    },
+    "require": {
+        "php": ">=7.2.0",
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "wiejakp\\captcha\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "wiejakp\\captcha\\Test\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
