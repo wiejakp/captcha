@@ -14,17 +14,25 @@ use wiejakp\captcha\Factory\ChallengeFactory;
 use wiejakp\captcha\Model\Challenge;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
+/**
+ * Main Captcha Service Class
+ */
 class CaptchaService
 {
-    /**
-     * @var string
-     */
-    const CAPTCHA_SESSION_KEY = 'component_captcha';
-
     /**
      * @var SessionInterface
      */
     private $session;
+
+    /**
+     * @var string
+     */
+    private $locale;
+
+    /**
+     * @var string
+     */
+    private $sessionKey;
 
     /**
      * @var ChallengeFactory
@@ -36,11 +44,35 @@ class CaptchaService
      *
      * @param SessionInterface $session
      * @param ChallengeFactory $challengeFactory
+     * @param string           $locale
+     * @param string           $sessionKey
      */
-    public function __construct(SessionInterface $session, ChallengeFactory $challengeFactory)
-    {
+    public function __construct(
+        SessionInterface $session,
+        ChallengeFactory $challengeFactory,
+        string $locale = 'en',
+        string $sessionKey = 'wiejakp\captcha\session_key'
+    ) {
         $this->session = $session;
         $this->challengeFactory = $challengeFactory;
+        $this->locale = $locale;
+        $this->sessionKey = $sessionKey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocale(): string
+    {
+        return $this->locale;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSessionKey(): string
+    {
+        return $this->sessionKey;
     }
 
     /**
@@ -50,7 +82,7 @@ class CaptchaService
      */
     public function setCaptchaSession(Challenge $challenge): self
     {
-        $this->session->set(self::CAPTCHA_SESSION_KEY, $challenge);
+        $this->session->set($this->getSessionKey(), $challenge);
 
         return $this;
     }
@@ -60,7 +92,7 @@ class CaptchaService
      */
     public function getCaptchaSession(): ?Challenge
     {
-        return $this->session->get(self::CAPTCHA_SESSION_KEY);
+        return $this->session->get($this->getSessionKey());
     }
 
     /**

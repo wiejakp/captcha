@@ -2,7 +2,7 @@
     "name": "wiejakp/captcha",
     "description": "Captcha library for PHP applications.",
     "type": "library",
-    "keywords": ["php"],
+    "keywords": ["php", "library", "captcha"],
     "homepage": "https://github.com/wiejakp/captcha",
     "license": "MIT",
     "authors": [
@@ -21,6 +21,7 @@
     },
     "require": {
         "php": ">=7.2.0",
+        "symfony/http-foundation": "^4.3"
     },
     "require-dev": {
     },
