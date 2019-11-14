@@ -12,6 +12,9 @@
             "homepage": "https://www.wiejak.app"
         }
     ],
+    "config": {
+        "sort-packages": true
+    },
     "support": {
         "docs": "https://wiejakp.github.io/captcha/",
         "issues": "https://github.com/wiejakp/captcha/issues",
