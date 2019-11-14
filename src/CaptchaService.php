@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace wiejakp\captcha\Service;
+namespace wiejakp\captcha;
 
 use wiejakp\captcha\Factory\ChallengeFactory;
 use wiejakp\captcha\Model\Challenge;
