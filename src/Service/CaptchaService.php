@@ -25,54 +25,119 @@ class CaptchaService
     private $session;
 
     /**
-     * @var string
-     */
-    private $locale;
-
-    /**
-     * @var string
-     */
-    private $sessionKey;
-
-    /**
      * @var ChallengeFactory
      */
-    private $challengeFactory;
+    private $captchaChallengeFactory;
+
+    /**
+     * @var string
+     */
+    private $captchaLocale;
+
+    /**
+     * @var string
+     */
+    private $captchaSessionKey;
+
+    /**
+     * @var int[]
+     */
+    private $captchaNumberRange;
 
     /**
      * CaptchaService constructor.
      *
      * @param SessionInterface $session
      * @param ChallengeFactory $challengeFactory
-     * @param string           $locale
-     * @param string           $sessionKey
+     * @param string           $captchaLocale
+     * @param string           $captchaSessionKey
+     * @param int[]            $captchaNumberRange
      */
     public function __construct(
         SessionInterface $session,
-        ChallengeFactory $challengeFactory,
-        string $locale = 'en',
-        string $sessionKey = 'wiejakp\captcha\session_key'
+        string $captchaLocale = 'en',
+        string $captchaSessionKey = 'wiejakp\captcha\session_key',
+        array $captchaNumberRange = [0, 20]
     ) {
+        // init parameters
         $this->session = $session;
-        $this->challengeFactory = $challengeFactory;
-        $this->locale = $locale;
-        $this->sessionKey = $sessionKey;
+        $this->captchaLocale = $captchaLocale;
+        $this->captchaSessionKey = $captchaSessionKey;
+        $this->captchaNumberRange = $captchaNumberRange;
+
+        // init service config from parameters
+        $this->init();
+    }
+
+    /**
+     * @return CaptchaService
+     */
+    public function init(): self
+    {
+        // create new challenge factory with all required captcha values
+        $this->captchaChallengeFactory = new ChallengeFactory(
+            $this->getCaptchaLocale(),
+            $this->getCaptchaNumberRange()
+        );
+
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getLocale(): string
+    public function getCaptchaLocale(): string
     {
-        return $this->locale;
+        return $this->captchaLocale;
+    }
+
+    /**
+     * @param string $captchaLocale
+     *
+     * @return self
+     */
+    public function setCaptchaLocale(string $captchaLocale): self
+    {
+        $this->captchaLocale = $captchaLocale;
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getSessionKey(): string
+    public function getCaptchaSessionKey(): string
     {
-        return $this->sessionKey;
+        return $this->captchaSessionKey;
+    }
+
+    /**
+     * @param string $captchaSessionKey
+     *
+     * @return self
+     */
+    public function setCaptchaSessionKey(string $captchaSessionKey): self
+    {
+        $this->captchaSessionKey = $captchaSessionKey;
+        return $this;
+    }
+
+    /**
+     * @return int[]
+     */
+    public function getCaptchaNumberRange(): array
+    {
+        return $this->captchaNumberRange;
+    }
+
+    /**
+     * @param int[] $captchaNumberRange
+     *
+     * @return self
+     */
+    public function setCaptchaNumberRange(array $captchaNumberRange): self
+    {
+        $this->captchaNumberRange = $captchaNumberRange;
+        return $this;
     }
 
     /**
@@ -82,7 +147,7 @@ class CaptchaService
      */
     public function setCaptchaSession(Challenge $challenge): self
     {
-        $this->session->set($this->getSessionKey(), $challenge);
+        $this->session->set($this->getCaptchaSessionKey(), $challenge);
 
         return $this;
     }
@@ -92,7 +157,7 @@ class CaptchaService
      */
     public function getCaptchaSession(): ?Challenge
     {
-        return $this->session->get($this->getSessionKey());
+        return $this->session->get($this->getCaptchaSessionKey());
     }
 
     /**
@@ -100,7 +165,7 @@ class CaptchaService
      */
     public function getChallenge(): Challenge
     {
-        return $this->challengeFactory->createChallenge();
+        return $this->captchaChallengeFactory->createChallenge();
     }
 
     /**
@@ -108,7 +173,7 @@ class CaptchaService
      */
     public function getPositiveChallenge(): Challenge
     {
-        return $this->challengeFactory->createPositiveChallenge();
+        return $this->captchaChallengeFactory->createPositiveChallenge();
     }
 
     /**
@@ -116,6 +181,6 @@ class CaptchaService
      */
     public function getMockChallenge(): Challenge
     {
-        return $this->challengeFactory->createChallenge(0, null, 0);
+        return $this->captchaChallengeFactory->createChallenge(0, null, 0);
     }
 }

@@ -13,6 +13,8 @@ namespace wiejakp\captcha\Factory;
 use wiejakp\captcha\Model\Challenge;
 use wiejakp\captcha\Model\Equation;
 
+use NumberFormatter;
+
 class ChallengeFactory
 {
     /**
@@ -37,6 +39,92 @@ class ChallengeFactory
         '+' => 'plus',
         '-' => 'minus',
     ];
+
+    /**
+     * @var string
+     */
+    private $value_locale = '';
+
+    /**
+     * @var int[]
+     */
+    private $value_range = [0, 0];
+
+    /**
+     * @var string[]
+     */
+    private $value_signs = [];
+
+    /**
+     * @var string[]
+     */
+    private $value_numbers = [];
+
+    public function __construct(string $value_locale, array $value_range)
+    {
+        // initiate parameters
+        $this->value_locale = $value_locale;
+        $this->value_range = $value_range;
+
+        // initiate factory values
+        $this->init();
+    }
+
+    /**
+     * @return ChallengeFactory
+     */
+    private function init(): self
+    {
+        // create sign formatter based on locale
+        $this->value_signs = [
+            '+' => (new NumberFormatter($this->getValueLocale(), NumberFormatter::POSITIVE_PREFIX))->format(+1),
+            '-' => (new NumberFormatter($this->getValueLocale(), NumberFormatter::NEGATIVE_PREFIX))->format(-1),
+        ];
+
+        // create number formatter based on locale
+        $formatter = new NumberFormatter($this->getValueLocale(), NumberFormatter::SPELLOUT);
+
+        for ($index = $this->getValueRange()[0]; $index <= $this->getValueRange()[1]; $index++) {
+            $this->value_numbers[$index] = $formatter->format($index);
+        }
+
+        var_dump($this->value_signs);
+        var_dump($this->value_numbers);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValueLocale(): string
+    {
+        return $this->value_locale;
+    }
+
+    /**
+     * @return int[]
+     */
+    public function getValueRange(): array
+    {
+        return $this->value_range;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getValueSigns(): array
+    {
+        return $this->value_signs;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getValueNumbers(): array
+    {
+        return $this->value_numbers;
+    }
 
     /**
      * @var string[]
