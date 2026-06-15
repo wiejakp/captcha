@@ -15,15 +15,10 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 class InvalidCaptchaException extends AuthenticationException
 {
     /**
-     * @var string
-     */
-    protected $message = "Your math doesn't check out. Please try logging in again.";
-
-    /**
      * {@inheritdoc}
      */
     public function getMessageKey()
     {
-        return $this->message;
+        return "Your math doesn't check out. Please try logging in again.";
     }
 }

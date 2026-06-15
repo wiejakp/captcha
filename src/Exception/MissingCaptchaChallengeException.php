@@ -15,15 +15,10 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 class MissingCaptchaChallengeException extends AuthenticationException
 {
     /**
-     * @var string
-     */
-    protected $message = 'Missing captcha challenge.';
-
-    /**
      * {@inheritdoc}
      */
     public function getMessageKey()
     {
-        return $this->message;
+        return 'Missing captcha challenge.';
     }
 }

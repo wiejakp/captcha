@@ -51,7 +51,7 @@ class Equation
 
         try {
             $this->solution = (string)eval(\sprintf('return %s;', $this->getEquation()));
-        } catch (\Exception $exception) {
+        } catch (\Throwable $exception) {
             throw new InvalidEquationException(\sprintf('Invalid Equation: %s', $this->getEquation()));
         }
     }
