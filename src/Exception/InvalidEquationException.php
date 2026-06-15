@@ -15,15 +15,10 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 class InvalidEquationException extends AuthenticationException
 {
     /**
-     * @var string
-     */
-    protected $message = 'Invalid equation exception.';
-
-    /**
      * {@inheritdoc}
      */
     public function getMessageKey()
     {
-        return $this->message;
+        return 'Invalid equation exception.';
     }
 }
