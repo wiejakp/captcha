@@ -21,29 +21,29 @@ use wiejakp\captcha\Model\Challenge;
 class CaptchaService
 {
     /**
-     * @var Session
+     * @var SessionInterface|null
      */
-    private $captchaSession;
+    private ?SessionInterface $captchaSession;
 
     /**
      * @var ChallengeFactory
      */
-    private $captchaChallengeFactory;
+    private ChallengeFactory $captchaChallengeFactory;
 
     /**
      * @var string
      */
-    private $captchaLocale;
+    private string $captchaLocale;
 
     /**
      * @var string
      */
-    private $captchaSessionKey;
+    private string $captchaSessionKey;
 
     /**
      * @var int[]
      */
-    private $captchaNumberRange;
+    private array $captchaNumberRange;
 
     /**
      * CaptchaService constructor.
@@ -54,7 +54,7 @@ class CaptchaService
      * @param array                 $captchaNumberRange
      */
     public function __construct(
-        SessionInterface $captchaSession = null,
+        ?SessionInterface $captchaSession = null,
         string $captchaLocale = 'en',
         string $captchaSessionKey = 'wiejakp\captcha\session_key',
         array $captchaNumberRange = [0, 20]
@@ -75,7 +75,7 @@ class CaptchaService
     public function init(): void
     {
         // validate provided range numbers
-        if($this->getCaptchaNumberRange()[1] < $this->getCaptchaNumberRange()[0]) {
+        if ($this->getCaptchaNumberRange()[1] < $this->getCaptchaNumberRange()[0]) {
             throw new \Exception('Provided range numbers are invalid.');
         }
 
@@ -90,9 +90,9 @@ class CaptchaService
     }
 
     /**
-     * @return Session
+     * @return SessionInterface
      */
-    private function getCaptchaSession(): Session
+    private function getCaptchaSession(): SessionInterface
     {
         $session = $this->captchaSession;
 

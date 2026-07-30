@@ -21,11 +21,10 @@ abstract class AbstractUnitTestCase extends TestCase
      *
      * @return mixed
      */
-    protected function readObjectProperty(object $object, string $property)
+    protected function readObjectProperty(object $object, string $property): mixed
     {
         $reflection = new ReflectionClass($object);
         $reflectionProperty = $reflection->getProperty($property);
-        $reflectionProperty->setAccessible(true);
 
         return $reflectionProperty->getValue($object);
     }
@@ -35,11 +34,10 @@ abstract class AbstractUnitTestCase extends TestCase
      * @param string $property
      * @param mixed  $value
      */
-    protected function writeObjectProperty(object $object, string $property, $value): void
+    protected function writeObjectProperty(object $object, string $property, mixed $value): void
     {
         $reflection = new ReflectionClass($object);
         $reflectionProperty = $reflection->getProperty($property);
-        $reflectionProperty->setAccessible(true);
         $reflectionProperty->setValue($object, $value);
     }
 }

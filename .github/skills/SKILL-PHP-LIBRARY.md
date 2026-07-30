@@ -5,8 +5,8 @@ Use this skill when working on `wiejakp/captcha`, a small Composer-based PHP lib
 ## Focus Areas
 
 - Preserve public API stability unless breaking changes are explicitly requested.
-- Keep compatibility with PHP `>=7.2.0` and `symfony/http-foundation` `^4.0|^5.0|^6.0` unless the
-  task changes support targets.
+- Keep compatibility with PHP `^8.1`, `symfony/http-foundation` `^6.4`, and
+  `symfony/security-core` `^6.4` unless the task changes support targets.
 - Prefer targeted edits in `src/` over broad refactors.
 
 ## Project Map
@@ -28,4 +28,4 @@ Use this skill when working on `wiejakp/captcha`, a small Composer-based PHP lib
 - Follow the existing strict-types and docblock-heavy style.
 - Avoid adding dependencies unless clearly justified.
 - Keep edits small and behaviorally obvious.
-- When validation is possible, run syntax checks or available Composer-based tests.
+- Run the PHPUnit `^10.5` suite and coverage with a PCOV- or Xdebug-enabled PHP 8.1 runtime.

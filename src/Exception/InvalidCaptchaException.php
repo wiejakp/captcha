@@ -17,7 +17,7 @@ class InvalidCaptchaException extends AuthenticationException
     /**
      * {@inheritdoc}
      */
-    public function getMessageKey()
+    public function getMessageKey(): string
     {
         return "Your math doesn't check out. Please try logging in again.";
     }

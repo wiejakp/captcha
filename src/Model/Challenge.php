@@ -13,19 +13,19 @@ namespace wiejakp\captcha\Model;
 class Challenge
 {
     /**
-     * @var Equation
+     * @var Equation|null
      */
-    private $equation;
+    private ?Equation $equation = null;
 
     /**
      * @var string
      */
-    private $challenge;
+    private string $challenge;
 
     /**
      * @var string
      */
-    private $solution;
+    private string $solution;
 
     /**
      * Challenge constructor.

@@ -10,10 +10,14 @@ declare(strict_types=1);
 
 namespace wiejakp\captcha\Tests\Model;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use wiejakp\captcha\Model\Challenge;
 use wiejakp\captcha\Model\Equation;
 use wiejakp\captcha\Tests\AbstractUnitTestCase;
 
+#[CoversClass(Challenge::class)]
+#[UsesClass(Equation::class)]
 class ChallengeTest extends AbstractUnitTestCase
 {
     public function testChallengeExposesConfiguredValues(): void

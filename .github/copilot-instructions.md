@@ -36,8 +36,9 @@ Required skill routing:
 Repository runtime rules:
 
 - `composer.json` is authoritative for supported PHP and dependency constraints.
-- Current PHP support target is `>=7.2.0`.
-- Current Symfony HttpFoundation support target is `^4.0|^5.0|^6.0`.
+- Current PHP support target is `^8.1`.
+- Current Symfony HttpFoundation and Security Core support target is `^6.4`.
+- Current PHPUnit development target is `^10.5`.
 - Do not add new dependencies unless the task clearly requires them.
 - If no test command exists, validate changed PHP files with syntax checks when practical.
 

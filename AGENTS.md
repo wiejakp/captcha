@@ -100,8 +100,9 @@ math challenges.
 
 Important repository constraints:
 
-- PHP: `composer.json` currently requires `>=7.2.0`.
-- Symfony component support: `symfony/http-foundation` currently supports `^4.0|^5.0|^6.0`.
+- PHP: `composer.json` requires `^8.1`.
+- Symfony component support: `symfony/http-foundation` and `symfony/security-core` require `^6.4`.
+- Test tooling: `phpunit/phpunit` requires `^10.5`.
 - Main namespace: `wiejakp\\captcha`.
 - Core service: `src/CaptchaService.php`.
 - Challenge generation: `src/Factory/ChallengeFactory.php`.
