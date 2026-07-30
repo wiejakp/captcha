@@ -19,22 +19,22 @@ class ChallengeFactory
     /**
      * @var string
      */
-    private $value_locale = '';
+    private string $value_locale = '';
 
     /**
      * @var int[]
      */
-    private $value_range = [0, 0];
+    private array $value_range = [0, 0];
 
     /**
      * @var string[]
      */
-    private $value_signs = [];
+    private array $value_signs = [];
 
     /**
      * @var string[]
      */
-    private $value_numbers = [];
+    private array $value_numbers = [];
 
     /**
      * ChallengeFactory constructor.
@@ -109,7 +109,7 @@ class ChallengeFactory
      *
      * @return Challenge
      */
-    public function createChallenge(?int $left = null, string $sign = null, int $right = null): Challenge
+    public function createChallenge(?int $left = null, ?string $sign = null, ?int $right = null): Challenge
     {
         // init equation variables
         $left = $left ?? $this->getNumber();
@@ -135,7 +135,7 @@ class ChallengeFactory
      *
      * @return Challenge
      */
-    public function createPositiveChallenge(?int $left = null, string $sign = null, int $right = null): Challenge
+    public function createPositiveChallenge(?int $left = null, ?string $sign = null, ?int $right = null): Challenge
     {
         // init equation variables
         $left = $left ?? $this->getNumber();
@@ -189,9 +189,9 @@ class ChallengeFactory
      */
     private function createChallengeString(
         Equation $equation,
-        bool $leftLabel = null,
-        bool $signLabel = null,
-        bool $rightLabel = null
+        ?bool $leftLabel = null,
+        ?bool $signLabel = null,
+        ?bool $rightLabel = null
     ): string {
         $left = null;
         $sign = null;

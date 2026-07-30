@@ -25,8 +25,9 @@ repository boundaries, coding style, validation expectations, git safety, and co
 
 - This is a Composer PHP library, not a full application.
 - Preserve public API compatibility unless a breaking change is explicitly requested.
-- Respect `composer.json` support targets: PHP `>=7.2.0` and `symfony/http-foundation`
-  `^4.0|^5.0|^6.0`, unless the task explicitly changes support policy.
+- Respect `composer.json` support targets: PHP `^8.1`, `symfony/http-foundation` `^6.4`,
+  `symfony/security-core` `^6.4`, and PHPUnit `^10.5`, unless the task explicitly changes support
+  policy.
 - Use `.github/skills/SKILL-PHP-LIBRARY.md` for source, API, session, localization, Composer, and
   validation-related tasks in this repository.
 

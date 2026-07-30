@@ -10,12 +10,20 @@ declare(strict_types=1);
 
 namespace wiejakp\captcha\Tests;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\PreserveGlobalState;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
+use PHPUnit\Framework\Attributes\UsesClass;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use wiejakp\captcha\CaptchaService;
 use wiejakp\captcha\Factory\ChallengeFactory;
 use wiejakp\captcha\Model\Challenge;
 
+#[CoversClass(CaptchaService::class)]
+#[UsesClass(ChallengeFactory::class)]
+#[UsesClass(Challenge::class)]
 class CaptchaServiceTest extends AbstractUnitTestCase
 {
     public function testConstructorInitializesConfiguredValues(): void
@@ -33,10 +41,17 @@ class CaptchaServiceTest extends AbstractUnitTestCase
         );
     }
 
-    /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     */
+    public function testConstructorAcceptsAnySessionInterfaceImplementation(): void
+    {
+        $session = $this->createMock(SessionInterface::class);
+
+        $service = new CaptchaService($session);
+
+        self::assertSame($session, $this->readObjectProperty($service, 'captchaSession'));
+    }
+
+    #[RunInSeparateProcess]
+    #[PreserveGlobalState(false)]
     public function testConstructorStartsSessionWhenNoneProvided(): void
     {
         $service = new CaptchaService(null, 'en', 'session_key', array(0, 1));
@@ -168,32 +183,32 @@ class CaptchaServiceTestChallengeFactory extends ChallengeFactory
     /**
      * @var Challenge
      */
-    private $challenge;
+    private Challenge $challenge;
 
     /**
      * @var Challenge
      */
-    private $positiveChallenge;
+    private Challenge $positiveChallenge;
 
     /**
      * @var Challenge
      */
-    private $mockChallenge;
+    private Challenge $mockChallenge;
 
     /**
      * @var int
      */
-    public $createChallengeCalls = 0;
+    public int $createChallengeCalls = 0;
 
     /**
      * @var int
      */
-    public $createPositiveChallengeCalls = 0;
+    public int $createPositiveChallengeCalls = 0;
 
     /**
      * @var int
      */
-    public $createMockChallengeCalls = 0;
+    public int $createMockChallengeCalls = 0;
 
     public function __construct(Challenge $challenge, Challenge $positiveChallenge, Challenge $mockChallenge)
     {
@@ -203,8 +218,11 @@ class CaptchaServiceTestChallengeFactory extends ChallengeFactory
         $this->mockChallenge = $mockChallenge;
     }
 
-    public function createChallenge(?int $left = null, string $sign = null, int $right = null): Challenge
-    {
+    public function createChallenge(
+        ?int $left = null,
+        ?string $sign = null,
+        ?int $right = null
+    ): Challenge {
         if (0 === $left && 0 === $right) {
             ++$this->createMockChallengeCalls;
 
@@ -216,8 +234,11 @@ class CaptchaServiceTestChallengeFactory extends ChallengeFactory
         return $this->challenge;
     }
 
-    public function createPositiveChallenge(?int $left = null, string $sign = null, int $right = null): Challenge
-    {
+    public function createPositiveChallenge(
+        ?int $left = null,
+        ?string $sign = null,
+        ?int $right = null
+    ): Challenge {
         ++$this->createPositiveChallengeCalls;
 
         return $this->positiveChallenge;

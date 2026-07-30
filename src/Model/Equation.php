@@ -17,22 +17,22 @@ class Equation
     /**
      * @var int
      */
-    private $left;
+    private int $left;
 
     /**
      * @var string
      */
-    private $sign;
+    private string $sign;
 
     /**
      * @var int
      */
-    private $right;
+    private int $right;
 
     /**
      * @var string
      */
-    private $solution;
+    private string $solution;
 
     /**
      * Equation constructor.
@@ -49,11 +49,13 @@ class Equation
         $this->sign = $sign;
         $this->right = $right;
 
-        try {
-            $this->solution = (string)eval(\sprintf('return %s;', $this->getEquation()));
-        } catch (\Throwable $exception) {
-            throw new InvalidEquationException(\sprintf('Invalid Equation: %s', $this->getEquation()));
-        }
+        $this->solution = match ($this->getSign()) {
+            '+' => (string)($this->getLeft() + $this->getRight()),
+            '-' => (string)($this->getLeft() - $this->getRight()),
+            default => throw new InvalidEquationException(
+                \sprintf('Invalid Equation: %s', $this->getEquation())
+            ),
+        };
     }
 
     /**

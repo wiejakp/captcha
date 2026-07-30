@@ -17,7 +17,7 @@ class InvalidEquationException extends AuthenticationException
     /**
      * {@inheritdoc}
      */
-    public function getMessageKey()
+    public function getMessageKey(): string
     {
         return 'Invalid equation exception.';
     }

@@ -17,7 +17,7 @@ class MissingCaptchaChallengeException extends AuthenticationException
     /**
      * {@inheritdoc}
      */
-    public function getMessageKey()
+    public function getMessageKey(): string
     {
         return 'Missing captcha challenge.';
     }

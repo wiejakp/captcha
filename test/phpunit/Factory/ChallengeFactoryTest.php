@@ -10,11 +10,17 @@ declare(strict_types=1);
 
 namespace wiejakp\captcha\Tests\Factory;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use ReflectionMethod;
 use wiejakp\captcha\Factory\ChallengeFactory;
+use wiejakp\captcha\Model\Challenge;
 use wiejakp\captcha\Model\Equation;
 use wiejakp\captcha\Tests\AbstractUnitTestCase;
 
+#[CoversClass(ChallengeFactory::class)]
+#[UsesClass(Challenge::class)]
+#[UsesClass(Equation::class)]
 class ChallengeFactoryTest extends AbstractUnitTestCase
 {
     public function testConstructorInitializesLocaleRangeSignsAndNumbers(): void
@@ -96,7 +102,6 @@ class ChallengeFactoryTest extends AbstractUnitTestCase
         $factory = new ChallengeFactory('en', array(0, 5));
         $equation = new Equation(2, '+', 3);
         $method = new ReflectionMethod(ChallengeFactory::class, 'createChallengeString');
-        $method->setAccessible(true);
 
         self::assertSame('two plus three', $method->invoke($factory, $equation, true, true, true));
         self::assertSame('2 + 3', $method->invoke($factory, $equation, false, false, false));

@@ -10,10 +10,12 @@ declare(strict_types=1);
 
 namespace wiejakp\captcha\Tests\Exception;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use wiejakp\captcha\Exception\MissingCaptchaChallengeException;
 use wiejakp\captcha\Tests\AbstractUnitTestCase;
 
+#[CoversClass(MissingCaptchaChallengeException::class)]
 class MissingCaptchaChallengeExceptionTest extends AbstractUnitTestCase
 {
     public function testMessageKeyMatchesExpectedText(): void
